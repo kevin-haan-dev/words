@@ -1,12 +1,9 @@
 FROM nginx:latest
 
-COPY Nginx/nginx.conf.template /etc/nginx/nginx.conf.template
-COPY Nginx/init-nginx.sh ./
-
-RUN chmod +x ./init-nginx.sh
+COPY Nginx/nginx.conf /etc/nginx/nginx.conf
 
 ARG PORT=80
 ENV PORT $PORT
 EXPOSE $PORT
 
-CMD ["./init-nginx.sh"]
+CMD ["nginx", "-g", "daemon off;"]
