@@ -6,4 +6,6 @@ COPY . /usr/src/app
 
 EXPOSE $PORT
 
+RUN sbt compile
+
 CMD ["sbt", "run"]
