@@ -1,0 +1,7 @@
+$gradient-from: #155162;
+$gradient-to: #71b280;
+$progress-bar-color: linear-gradient(
+  to right,
+  $gradient-to,
+  $gradient-from
+) !default;

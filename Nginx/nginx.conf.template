@@ -1,0 +1,22 @@
+events { }
+
+http {
+    upstream websocket-server {
+        server websocket-service:${WEBSOCKET_PORT};
+    }
+    server {
+        listen ${HTTP_PORT};
+
+        location / {
+            proxy_pass http://frontend-service:${FRONTEND_PORT};
+        }
+
+        location /words {
+            proxy_pass http://websocket-server;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+            proxy_set_header Host $host;
+        }
+    }
+}

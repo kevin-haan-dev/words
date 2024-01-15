@@ -1,0 +1,30 @@
+@use "fonts";
+@use "variables" as *;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.toast-progress-bar {
+  background: $progress-bar-color !important;
+}
+
+.app-background {
+  position: relative;
+  background: linear-gradient(90deg, $gradient-from, $gradient-to);
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("/images/noise.svg");
+    opacity: 1;
+    pointer-events: none;
+    background-size: 100px 100px;
+  }
+}

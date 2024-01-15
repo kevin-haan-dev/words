@@ -1,0 +1,110 @@
+version: "3.8"
+services:
+  collector-service:
+    container_name: "collector-service"
+    build:
+      context: ./Backend/CollectorService
+      dockerfile: ../../.docker/Backend/collector.Dockerfile
+    ports:
+      - "${COLLECTOR_PORT}"
+    environment:
+      - PORT=${COLLECTOR_PORT}
+      - MESSAGEBROKER_USER=${MESSAGEBROKER_COLLECTOR}
+      - MESSAGEBROKER_PASSWORD=${MESSAGEBROKER_COLLECTOR_PASSWORD}
+      - MESSAGEBROKER_HOST=${MESSAGEBROKER_HOST}
+      - MESSAGEBROKER_PORT=${MESSAGEBROKER_PORT}
+
+    networks:
+      - network
+    restart: on-failure
+
+  processor-service:
+    container_name: "processor-service"
+    build:
+      context: .
+      dockerfile: .docker/Backend/processor.Dockerfile
+    ports:
+      - "${PROCESSOR_PORT}"
+    environment:
+      - TEST="test"
+      - NODE_ENV=${ENVIRONMENT}
+      - PORT=${PROCESSOR_PORT}
+      - MESSAGEBROKER_USER=${MESSAGEBROKER_PROCESSOR}
+      - MESSAGEBROKER_PASSWORD=${MESSAGEBROKER_PROCESSOR_PASSWORD}
+      - MESSAGEBROKER_HOST=${MESSAGEBROKER_HOST}
+      - MESSAGEBROKER_PORT=${MESSAGEBROKER_PORT}
+
+    networks:
+      - network
+    restart: on-failure
+
+  websocket-service:
+    container_name: "websocket-service"
+    build:
+      context: .
+      dockerfile: .docker/Backend/websocket.Dockerfile
+    ports:
+      - "${WEBSOCKET_PORT}"
+    environment:
+      - NODE_ENV=${ENVIRONMENT}
+      - PORT=${WEBSOCKET_PORT}
+      - MESSAGEBROKER_USER=${MESSAGEBROKER_WEBSOCKET}
+      - MESSAGEBROKER_PASSWORD=${MESSAGEBROKER_WEBSOCKET_PASSWORD}
+      - MESSAGEBROKER_HOST=${MESSAGEBROKER_HOST}
+      - MESSAGEBROKER_PORT=${MESSAGEBROKER_PORT}
+    networks:
+      - network
+    restart: on-failure
+
+  message-broker:
+    container_name: "message-broker"
+    build:
+      context: .
+      dockerfile: .docker/MessageBroker/rabbitmq.Dockerfile
+    ports:
+      - ${MESSAGEBROKER_MANAGEMENT_PORT}
+      - ${MESSAGEBROKER_PORT}
+    environment:
+      - MANAGEMENT_PORT=${MESSAGEBROKER_MANAGEMENT_PORT}
+      - PORT=${MESSAGEBROKER_PORT}
+      - MESSAGEBROKER_COLLECTOR=${MESSAGEBROKER_COLLECTOR}
+      - MESSAGEBROKER_COLLECTOR_PASSWORD=${MESSAGEBROKER_COLLECTOR_PASSWORD}
+      - MESSAGEBROKER_PROCESSOR=${MESSAGEBROKER_PROCESSOR}
+      - MESSAGEBROKER_PROCESSOR_PASSWORD=${MESSAGEBROKER_PROCESSOR_PASSWORD}
+      - MESSAGEBROKER_WEBSOCKET=${MESSAGEBROKER_WEBSOCKET}
+      - MESSAGEBROKER_WEBSOCKET_PASSWORD=${MESSAGEBROKER_WEBSOCKET_PASSWORD}
+
+    networks:
+      - network
+    restart: always
+
+  frontend-service:
+    container_name: "frontend-service"
+    build:
+      context: .
+      dockerfile: .docker/Frontend/frontend.Dockerfile
+    ports:
+      - ${FRONTEND_PORT}
+    networks:
+      - network
+    restart: always
+
+  nginx-service:
+    container_name: "nginx-service"
+    build:
+      context: .
+      dockerfile: .docker/Nginx/nginx.Dockerfile
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    environment:
+      - PORT=${NGINX_PORT}
+      - WEBSOCKET_PORT=${WEBSOCKET_PORT}
+      - FRONTEND_PORT=${FRONTEND_PORT}
+      - HTTP_PORT=${NGINX_PORT}
+    networks:
+      - network
+    restart: always
+
+networks:
+  network:
+    name: ${NETWORK_NAME}
