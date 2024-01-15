@@ -6,12 +6,12 @@ function App() {
     <>
       <ToastContainer
         transition={Slide}
-        position="top-right"
+        position="top-center"
         pauseOnFocusLoss={false}
         draggable
         progressClassName="toast-progress-bar"
+        containerClassName="toast-container"
       />
-
       <RouterProvider router={router}></RouterProvider>
     </>
   );

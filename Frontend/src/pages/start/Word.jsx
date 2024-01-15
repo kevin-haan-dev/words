@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { useInView, LazyMotion, domAnimation, m } from "framer-motion";
 import { useWordMapContext } from "../../context/WordMapContext";
-const Word = ({ word, count, onSelect }) => {
+
+const Word = ({ word, count }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { setSelectedWord } = useWordMapContext();

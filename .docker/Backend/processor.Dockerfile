@@ -1,20 +1,15 @@
-FROM node:21.5.0
-
-WORKDIR /usr/src/app
-
+# STAGE: build
+FROM node:21.5.0 as build
+WORKDIR /app
 COPY Backend/ProcessorService/package*.json ./
-COPY Backend/ProcessorService/init-processor.sh ./
-
-COPY Backend/shared ./src/shared
-
 RUN npm install
-
 COPY Backend/ProcessorService/ ./
+COPY Backend/shared ./src/shared
+RUN npm test
 
-RUN chmod +x ./init-processor.sh
-
-ARG PORT=5002
-ENV PORT $PORT
+# STAGE: prod
+FROM node:21.5.0-alpine
+WORKDIR /app
+COPY --from=build /app /app
 EXPOSE $PORT
-
-CMD ["./init-processor.sh"]
+CMD ["node", "ProcessorService.js"]

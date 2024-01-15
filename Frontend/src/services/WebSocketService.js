@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 class WebSocketService {
   constructor(url) {
     this.url = url;
@@ -7,11 +5,11 @@ class WebSocketService {
   }
 
   /**
-   * Connects to the WebSocket server and sets up event listeners.
+   * Connects to the WebSocket server and sets up event listeners
    *
-   * @param {function} onMessage - The function to be called when a message is received.
-   * @param {function} onError - The function to be called when an error occurs.
-   * @param {function} onOpen - The function to be called when the connection is successfully opened.
+   * @param {function} onMessage - called when a message is received
+   * @param {function} onError - called when an error occurs
+   * @param {function} onOpen - called when the connection is successfully opened
    */
   connect(onMessage, onError, onOpen) {
     if (

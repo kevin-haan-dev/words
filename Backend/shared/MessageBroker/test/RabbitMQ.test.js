@@ -31,7 +31,7 @@ describe("RabbitMQ class", () => {
     jest.clearAllMocks();
   });
 
-  test("connect method establishes connection", async () => {
+  it("connect method establishes connection", async () => {
     process.env.MESSAGEBROKER_USER = "user";
     process.env.MESSAGEBROKER_PASSWORD = "password";
     process.env.MESSAGEBROKER_HOST = "host";
@@ -46,7 +46,7 @@ describe("RabbitMQ class", () => {
     expect(rabbitMQ.channel).not.toBeNull();
   });
 
-  test("publishToQueue publishes message to queue", async () => {
+  it("publishToQueue publishes message to queue", async () => {
     const queueName = "testQueue";
     const message = "testMessage";
 
@@ -62,7 +62,7 @@ describe("RabbitMQ class", () => {
     expect(logger.info).toHaveBeenCalledWith("Sent message");
   });
 
-  test("consumeQueue logs info on message received", async () => {
+  it("consumeQueue logs info on message received", async () => {
     const queueName = "testQueue";
     const mockData = { content: Buffer.from("Test message") };
 

@@ -37,7 +37,8 @@ describe("EventHandler", () => {
 
     expect(mockProcessor.processData).toHaveBeenCalledWith(mockData);
     expect(mockMessageBroker.publishToQueue).toHaveBeenCalledWith(
-      expect.any(String)
+      expect.any(String),
+      "processedData"
     );
   });
 });

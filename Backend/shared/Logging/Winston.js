@@ -1,5 +1,7 @@
 const winston = require("winston");
 
+// creates a Winston Logger to write to error.log and combined.log
+
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.combine(

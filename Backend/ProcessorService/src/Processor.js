@@ -1,5 +1,7 @@
 const { JSDOM } = require("jsdom");
 
+// processes the post content by extracting the text within html-tags, passes them through a Regex and counts the words
+
 class Processor {
   /**
    * Processes the given data and returns a JSON string representing a word map.

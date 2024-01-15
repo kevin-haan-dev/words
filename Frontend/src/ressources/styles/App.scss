@@ -12,6 +12,11 @@ html {
   background: $progress-bar-color !important;
 }
 
+.Toastify__toast-container {
+  text-align: center;
+  font-weight: 400;
+}
+
 .app-background {
   position: relative;
   background: linear-gradient(90deg, $gradient-from, $gradient-to);

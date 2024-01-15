@@ -39,12 +39,10 @@ This project uses Docker for containerization.
 ### WebSocketService
 
 - **Description:**
-  - Sends processed data to the Frontend
+  - Sends processed data to the Frontend via WebSocket
 - **Language:**
   - Node.js
 - **Frameworks & Libraries:**
-
-  - Node.js
   - Winston
   - ws
   - Jest
@@ -55,12 +53,13 @@ This project uses Docker for containerization.
 ### Frontend
 
 - **Description:**
-  - Displays the word counts from posts
+  - Displays the word counts from posts and an About page
 - **Language:**
   - React
 - **Frameworks & Libraries:**
   - Framer Motion
   - React Toastify
+  - Tailwind
 - **Directory:**
   - Frontend
 
@@ -77,4 +76,4 @@ This project uses Docker for containerization.
 - **Description:**
   - Reverse Proxy between Frontend and Backend
 - **Directory:**
-  - NGINX
+  - Nginx

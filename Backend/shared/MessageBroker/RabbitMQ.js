@@ -3,6 +3,9 @@ const EventEmitter = require("events");
 const logger = require("../Logging/Winston");
 const messageBrokerConfig = require("../../../config/rabbitMQ");
 
+// Connects to Mesasge Broker service, consumes the specified queue, publishes to the specified queue
+// Emits an event when a message is received
+
 class RabbitMQ extends EventEmitter {
   constructor() {
     super();
@@ -12,8 +15,7 @@ class RabbitMQ extends EventEmitter {
   }
 
   /**
-   * Connects to the RabbitMQ server and consumes a specified queue.
-
+   * Connects to the RabbitMQ server and consumes the specified queue
    */
   async connect() {
     const rabbitMQUser = process.env.MESSAGEBROKER_USER;
@@ -30,7 +32,7 @@ class RabbitMQ extends EventEmitter {
       if (messageBrokerConfig.queueToConsume && this.connection && this.channel)
         this.consumeQueue(messageBrokerConfig.queueToConsume);
     } catch (error) {
-      logger.error("Could not connect to RabbitMQ. Trying Again", error);
+      logger.error("Could not connect to RabbitMQ yet. Trying Again");
       setTimeout(
         () =>
           this.connect(
@@ -46,9 +48,9 @@ class RabbitMQ extends EventEmitter {
   }
 
   /**
-   * Consume a specified queue.
+   * Consume the specified queue
    *
-   * @param {string} queueToConsume - the name of the queue to consume
+   * @param {string} queueToConsume - the queue to consume
    */
   async consumeQueue(queueToConsume) {
     await this.channel.assertQueue(queueToConsume, {
@@ -62,10 +64,10 @@ class RabbitMQ extends EventEmitter {
   }
 
   /**
-   * Publishes a message to a specified queue.
+   * Publishes data to the specified queue
    *
-   * @param {string} queueToPublish - The name of the queue to publish the message to.
-   * @param {string} message - The message to be published.
+   * @param {string} queueToPublish - The queue to publish to
+   * @param {string} message - The data to be published
    */
   async publishToQueue(queueToPublish, message) {
     if (!this.channel) {

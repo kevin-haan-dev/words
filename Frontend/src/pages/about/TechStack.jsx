@@ -65,7 +65,7 @@ function TechStack() {
       <h1 className="font-black  text-5xl tracking-tight text-center mb-20">
         Tech Stack
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
         {techStack.map((stack, index) => (
           <TechStackSection key={index} title={stack.title}>
             {stack.technologies.map((tech, index) => (

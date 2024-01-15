@@ -1,6 +1,3 @@
-import { SiRabbitmq } from "react-icons/si";
-import { SiScala } from "react-icons/si";
-import TechnologyCard from "./TechnologyCard";
 function TechStackSection({ title, children }) {
   return (
     <div>

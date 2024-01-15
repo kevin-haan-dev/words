@@ -18,7 +18,7 @@ function WordModal() {
           onClick={() => setSelectedWord(null)}
         >
           <motion.div
-            className=" font-black text-xl"
+            className=" font-black text-4xl"
             initial={{ scale: 0.5 }}
             animate={{
               scale: 1,

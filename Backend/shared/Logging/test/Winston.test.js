@@ -9,7 +9,7 @@ describe("Logger functionality", () => {
     if (fs.existsSync("combined.log")) fs.unlinkSync("combined.log");
   });
 
-  test("logs info level messages to combined.log", () => {
+  it("logs info level messages to combined.log", () => {
     logger.log("info", testMessage);
 
     setTimeout(() => {
@@ -19,7 +19,7 @@ describe("Logger functionality", () => {
     }, 500);
   });
 
-  test("logs error level messages to error.log and combined.log", () => {
+  it("logs error level messages to error.log and combined.log", () => {
     logger.log("error", testMessage);
 
     setTimeout(() => {

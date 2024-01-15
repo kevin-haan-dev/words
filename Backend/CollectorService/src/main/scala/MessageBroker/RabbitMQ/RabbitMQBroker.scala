@@ -13,7 +13,6 @@ class RabbitMQBroker extends MessageBroker {
   private def createConnection(): Connection = {
     var connection: Option[Connection] = None
     var attempts = 0
-    val maxAttempts = 5
     val delay = 5.seconds
 
     val messageBrokerUser = sys.env.get("MESSAGEBROKER_USER").getOrElse("default_user")
@@ -21,7 +20,7 @@ class RabbitMQBroker extends MessageBroker {
     val messageBrokerHost = sys.env.get("MESSAGEBROKER_HOST").getOrElse("message-broker")
     val messageBrokerPort = 5672
 
-    while (connection.isEmpty && attempts < maxAttempts) {
+    while (connection.isEmpty) {
       try {
         val connectionFactory = new ConnectionFactory()
           connectionFactory.setUsername(messageBrokerUser);
@@ -32,8 +31,7 @@ class RabbitMQBroker extends MessageBroker {
           connection = Some(connectionFactory.newConnection())
       } catch {
         case NonFatal(e) =>
-          attempts += 1
-          logger.error(s"Failed to connect to RabbitMQ. Trying again. $attempts of $maxAttempts")
+          logger.error(s"Failed to connect to RabbitMQ. Trying again.")
           Thread.sleep(delay.toMillis)
       }
     }

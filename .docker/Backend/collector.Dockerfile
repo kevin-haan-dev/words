@@ -4,8 +4,6 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-ARG PORT=5001
-ENV PORT $PORT
 EXPOSE $PORT
 
 RUN sbt compile

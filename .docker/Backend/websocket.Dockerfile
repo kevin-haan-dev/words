@@ -1,20 +1,15 @@
-FROM node:21.5.0
-
-WORKDIR /usr/src/app
-
+# STAGE: build
+FROM node:21.5.0 as build
+WORKDIR /app
 COPY Backend/WebSocketService/package*.json ./
-COPY Backend/WebSocketService/init-websocket.sh ./
-
-COPY Backend/shared ./src/shared
-
 RUN npm install
-
 COPY Backend/WebSocketService/ ./
+COPY Backend/shared ./src/shared
+RUN npm test
 
-RUN chmod +x ./init-websocket.sh
-
-ARG PORT=5003
-ENV PORT $PORT
+# STAGE: prod
+FROM node:21.5.0-alpine
+WORKDIR /app
+COPY --from=build /app /app
 EXPOSE $PORT
-
-CMD ["./init-websocket.sh"]
+CMD ["node", "WebSocketService.js"]

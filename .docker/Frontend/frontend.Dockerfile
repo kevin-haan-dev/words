@@ -1,19 +1,13 @@
-FROM node:21.5.0
-
+# STAGE: build
+FROM node:21.5.0 as build-stage
 WORKDIR /usr/src/app
-
 COPY Frontend/package*.json ./
-COPY Frontend/init-frontend.sh ./
-
 RUN npm install
+COPY Frontend/ .
+RUN npm run build
 
-COPY . .
-
-RUN chmod +x ./init-frontend.sh
-
-
-ARG PORT=3000
-ENV PORT $PORT
+# STAGE: prod
+FROM nginx:latest
+COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
 EXPOSE $PORT
-
-CMD ["sh", "./init-frontend.sh"]
+CMD ["nginx", "-g", "daemon off;"]

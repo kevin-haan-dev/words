@@ -52,7 +52,7 @@ export const WordMapProvider = ({ children }) => {
 
   useEffect(() => {
     paginatePosts();
-  }, [currentPage, postsPerPage, postData]);
+  }, [currentPage, postsPerPage, postData, paginatePosts]);
 
   useEffect(() => {
     webSocketService.connect(onMessage, onError, onOpen);

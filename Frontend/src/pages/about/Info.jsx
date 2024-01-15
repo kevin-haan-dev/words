@@ -3,7 +3,7 @@ import { RiTestTubeFill } from "react-icons/ri";
 import { FiBox } from "react-icons/fi";
 import { TbSettingsCog } from "react-icons/tb";
 function Info() {
-  const data = [
+  const countData = [
     {
       count: 4,
       title: "Services integriert",
@@ -27,7 +27,7 @@ function Info() {
         <div>Für diese Anwendung wurden...</div>
       </div>
       <div className="grid grid-cols-1 gap-20">
-        {data.map((item) => (
+        {countData.map((item) => (
           <div key={item.title}>
             <div className="font-black text-xl text-center mb-10">
               {item.count} {item.title}
