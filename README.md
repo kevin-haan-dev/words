@@ -78,3 +78,4 @@ This project uses Docker for containerization.
   - Reverse Proxy between Frontend and Backend
 - **Directory:**
   - NGINX
+# words
