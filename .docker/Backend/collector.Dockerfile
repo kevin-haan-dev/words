@@ -1,11 +1,9 @@
-# uses precompiled Fat JAR created with sbt assembly
-
-FROM openjdk:17-alpine
+FROM sbtscala/scala-sbt:eclipse-temurin-focal-17.0.9_9_1.9.8_3.3.1
 
 WORKDIR /usr/src/app
 
-COPY ./target/scala-3.3.1/CollectorService-assembly-0.1.jar /usr/src/app/collector.jar
+COPY . /usr/src/app
 
 EXPOSE $PORT
 
-CMD ["java", "-jar", "collector.jar"]
+CMD ["sbt", "run"]

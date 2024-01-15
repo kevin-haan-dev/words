@@ -20,9 +20,3 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % LogbackVersion,
   "org.slf4j" % "slf4j-api" % SLF4JVersion
 )
-
-assembly / assemblyMergeStrategy := {
-  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-  case "module-info.class" => MergeStrategy.first
-  case x => (assembly / assemblyMergeStrategy).value(x)
-}
