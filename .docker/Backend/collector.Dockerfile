@@ -1,11 +1,11 @@
-FROM sbtscala/scala-sbt:eclipse-temurin-focal-17.0.9_9_1.9.8_3.3.1
+# uses precompiled Fat JAR created with sbt assembly
+
+FROM openjdk:17-alpine
 
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
+COPY ./target/scala-3.3.1/CollectorService-assembly-0.1.jar /usr/src/app/collector.jar
 
 EXPOSE $PORT
 
-RUN sbt compile
-
-CMD ["sbt", "run"]
+CMD ["java", "-jar", "collector.jar"]
