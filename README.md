@@ -4,8 +4,9 @@ This is a microservice project using event-driven design. It collects data via a
 
 ## Start
 
-1. **Run:** `docker compose up`
-2. **Visit:** [127.0.0.1](http://127.0.0.1)
+1. **Rename:** `.env.example to .env`
+2. **Run:** `docker compose up`
+3. **Visit:** [127.0.0.1](http://127.0.0.1)
 
 ## Structure
 
