@@ -22,12 +22,26 @@ class Processor {
     return JSON.stringify(wordMap);
   }
 
+/**
+   * Extracts words from the given HTML content.
+   * Uses the JSDOM library to parse the HTML content and extract the text
+   * Passes them through a Regex and counts the words
+   *
+   * @param {string} htmlContent - HTML content to extract words from
+   * @return {string[]} array of words extracted from the HTML content
+   */
   extractWords(htmlContent) {
     const dom = new JSDOM(htmlContent);
     const text = dom.window.document.body.textContent;
     return text.trim().match(/\b\p{Letter}{2,}\b/giu) || [];
   }
 
+  /**
+   * Counts the occurrences of each word in a given array of words
+   *
+   * @param {Array} words - array of words to count
+   * @return {Object} - object mapping each word to its count
+   */
   countWords(words) {
     const wordCounts = {};
     words.forEach((word) => {
